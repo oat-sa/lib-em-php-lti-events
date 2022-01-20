@@ -1,0 +1,20 @@
+{
+    "name": "oat-sa/lib-em-php-lti-events",
+    "minimum-stability": "dev",
+    "require": {
+        "symfony/validator": "5.3.*",
+        "symfony/serializer": "5.3.*",
+        "doctrine/annotations": "1.14.x-dev",
+        "oat-sa/lib-lti1p3-ags": "^1.2",
+        "symfony/property-access": "5.3.*",
+        "oat-sa/lib-lti1p3-core": "^6.6",
+        "oat-sa/lib-lti1p3-proctoring": "^0.4",
+        "oat-sa/lib-lti1p3-basic-outcome": "^4.1",
+        "oat-sa/lib-lti1p3-nrps": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "OAT\\Library\\EnvironmentManagementLtiEvents\\": "src/"
+        }
+    }
+}
