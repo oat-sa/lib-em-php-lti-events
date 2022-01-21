@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace OAT\Library\EnvironmentManagementLtiEvents\Normalizer\Ags;
 
-use DateTime;
+use DateTimeImmutable;
 use OAT\Library\Lti1p3Ags\Model\LineItem\LineItem;
 use OAT\Library\Lti1p3Ags\Model\LineItem\LineItemInterface;
 use OAT\Library\Lti1p3Ags\Model\LineItem\LineItemSubmissionReview;
 use OAT\Library\Lti1p3Core\Util\Collection\Collection;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
-use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -59,10 +59,10 @@ class LineItemNormalizer implements NormalizerInterface, DenormalizerInterface, 
         return $data instanceof LineItemInterface;
     }
 
-    public function denormalize($data, string $type, string $format = null, array $context = []): ?LineItemInterface
+    public function denormalize($data, string $type, string $format = null, array $context = []): LineItemInterface
     {
-        if ($data === null) {
-            return null;
+        if (!is_array($data)) {
+            throw new InvalidArgumentException(sprintf('Data expected to be an array, "%s" given.', get_debug_type($data)));
         }
 
         return new LineItem(
@@ -72,9 +72,9 @@ class LineItemNormalizer implements NormalizerInterface, DenormalizerInterface, 
             $data[self::PARAM_RESOURCE_IDENTIFIER] ?? null,
             $data[self::PARAM_RESOURCE_LINK_IDENTIFIER] ?? null,
             $data[self::PARAM_TAG] ?? null,
-            ($data[self::PARAM_START_DATE_TIME] ?? null) !== null ? $this->denormalizer->denormalize($data[self::PARAM_START_DATE_TIME] ?? null, DateTime::class, $format, $context) : null,
-            ($data[self::PARAM_END_DATE_TIME] ?? null) !== null ? $this->denormalizer->denormalize($data[self::PARAM_END_DATE_TIME] ?? null, DateTime::class, $format, $context) : null,
-            ($data[self::PARAM_SUBMISSION_REVIEW] ?? null) !== null ? $this->denormalizer->denormalize($data[self::PARAM_SUBMISSION_REVIEW] ?? null, LineItemSubmissionReview::class, $format, $context) : null,
+            ($data[self::PARAM_START_DATE_TIME] ?? null) !== null ? $this->denormalizer->denormalize($data[self::PARAM_START_DATE_TIME], DateTimeImmutable::class, $format, $context) : null,
+            ($data[self::PARAM_END_DATE_TIME] ?? null) !== null ? $this->denormalizer->denormalize($data[self::PARAM_END_DATE_TIME], DateTimeImmutable::class, $format, $context) : null,
+            ($data[self::PARAM_SUBMISSION_REVIEW] ?? null) !== null ? $this->denormalizer->denormalize($data[self::PARAM_SUBMISSION_REVIEW], LineItemSubmissionReview::class, $format, $context) : null,
             $this->denormalizer->denormalize($data[self::PARAM_ADDITIONAL_PROPERTIES] ?? [], Collection::class, $format, $context)->all(),
         );
     }
