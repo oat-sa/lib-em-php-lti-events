@@ -13,8 +13,8 @@
         "oat-sa/lib-lti1p3-core": "^6.6",
         "oat-sa/lib-lti1p3-nrps": "^7.0",
         "oat-sa/lib-lti1p3-proctoring": "^0.4",
-        "symfony/property-access": "5.3.*",
-        "symfony/serializer": "5.3.*"
+        "symfony/property-access": "^5.0",
+        "symfony/serializer": "^5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5"
