@@ -6,6 +6,7 @@ namespace OAT\Library\EnvironmentManagementLtiEvents\Normalizer\Ags;
 
 use OAT\Library\Lti1p3Ags\Model\LineItem\LineItemSubmissionReview;
 use OAT\Library\Lti1p3Ags\Model\LineItem\LineItemSubmissionReviewInterface;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -34,14 +35,14 @@ class SubmissionReviewNormalizer implements NormalizerInterface, DenormalizerInt
         return $data instanceof LineItemSubmissionReviewInterface;
     }
 
-    public function denormalize($data, string $type, string $format = null, array $context = []): ?LineItemSubmissionReview
+    public function denormalize($data, string $type, string $format = null, array $context = []): LineItemSubmissionReview
     {
-        if ($data === null) {
-            return null;
+        if (!is_array($data)) {
+            throw new InvalidArgumentException(sprintf('Data expected to be an array, "%s" given.', get_debug_type($data)));
         }
 
         return new LineItemSubmissionReview(
-            $data[self::PARAM_REVIEWABLE_STATUSES],
+            $data[self::PARAM_REVIEWABLE_STATUSES] ?? [],
             $data[self::PARAM_LABEL] ?? null,
             $data[self::PARAM_URL] ?? null,
             $data[self::PARAM_CUSTOM_PROPERTIES] ?? [],
@@ -50,6 +51,9 @@ class SubmissionReviewNormalizer implements NormalizerInterface, DenormalizerInt
 
     public function supportsDenormalization($data, string $type, string $format = null): bool
     {
-        return $type === LineItemSubmissionReviewInterface::class;
+        return in_array($type, [
+            LineItemSubmissionReviewInterface::class,
+            LineItemSubmissionReview::class,
+        ]);
     }
 }

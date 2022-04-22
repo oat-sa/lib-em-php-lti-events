@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OAT\Library\EnvironmentManagementLtiEvents\Factory;
 
-use Doctrine\Common\Annotations\AnnotationReader;
 use OAT\Library\EnvironmentManagementLtiEvents\Normalizer\Ags\LineItemNormalizer;
 use OAT\Library\EnvironmentManagementLtiEvents\Normalizer\Ags\ScoreNormalizer;
 use OAT\Library\EnvironmentManagementLtiEvents\Normalizer\Ags\SubmissionReviewNormalizer;
@@ -24,8 +23,9 @@ class LtiSerializerFactory
 {
     public static function create(): SerializerInterface
     {
-        $classMetaDataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
+        $classMetaDataFactory = new ClassMetadataFactory(new AnnotationLoader());
         $classDiscriminator = new ClassDiscriminatorFromClassMetadata($classMetaDataFactory);
+
         return new Serializer(
             [
                 new LineItemNormalizer(),
@@ -35,13 +35,7 @@ class LtiSerializerFactory
                 new AcsControlNormalizer(),
                 new ResourceLinkNormalizer(),
                 new DateTimeNormalizer(),
-                new ObjectNormalizer(
-                    $classMetaDataFactory,
-                    null,
-                    null,
-                    null,
-                    $classDiscriminator
-                ),
+                new ObjectNormalizer($classMetaDataFactory, null, null, null, $classDiscriminator),
             ],
             [
                 new JsonEncoder(),
