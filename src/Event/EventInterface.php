@@ -21,25 +21,24 @@ use OAT\Library\EnvironmentManagementLtiEvents\Event\Nrps\GetResourceLinkMembers
 use OAT\Library\EnvironmentManagementLtiEvents\Event\Proctoring\SendControlEvent;
 use Symfony\Component\Serializer\Annotation\DiscriminatorMap;
 
-/**
- * @DiscriminatorMap(typeProperty="type", mapping={
- *     CreateLineItemEvent::TYPE: CreateLineItemEvent::class,
- *     DeleteLineItemEvent::TYPE: DeleteLineItemEvent::class,
- *     GetLineItemEvent::TYPE: GetLineItemEvent::class,
- *     ListLineItemsEvent::TYPE: ListLineItemsEvent::class,
- *     ListResultsEvent::TYPE: ListResultsEvent::class,
- *     PublishScoreEvent::TYPE: PublishScoreEvent::class,
- *     UpdateLineItemEvent::TYPE: UpdateLineItemEvent::class,
- *     DeleteResultEvent::TYPE: DeleteResultEvent::class,
- *     ReadResultEvent::TYPE: ReadResultEvent::class,
- *     ReplaceResultEvent::TYPE: ReplaceResultEvent::class,
- *     SendBasicOutcomeEvent::TYPE: SendBasicOutcomeEvent::class,
- *     RequestEvent::TYPE: RequestEvent::class,
- *     GetContextMembershipEvent::TYPE: GetContextMembershipEvent::class,
- *     GetResourceLinkMembershipEvent::TYPE: GetResourceLinkMembershipEvent::class,
- *     SendControlEvent::TYPE: SendControlEvent::class,
- * })
- */
+#[DiscriminatorMap(typeProperty: 'type', mapping: [
+    CreateLineItemEvent::TYPE => CreateLineItemEvent::class,
+    DeleteLineItemEvent::TYPE => DeleteLineItemEvent::class,
+    GetLineItemEvent::TYPE => GetLineItemEvent::class,
+    ListLineItemsEvent::TYPE => ListLineItemsEvent::class,
+    ListResultsEvent::TYPE => ListResultsEvent::class,
+    PublishScoreEvent::TYPE => PublishScoreEvent::class,
+    UpdateLineItemEvent::TYPE => UpdateLineItemEvent::class,
+    DeleteResultEvent::TYPE => DeleteResultEvent::class,
+    ReadResultEvent::TYPE => ReadResultEvent::class,
+    ReplaceResultEvent::TYPE => ReplaceResultEvent::class,
+    SendBasicOutcomeEvent::TYPE => SendBasicOutcomeEvent::class,
+    RequestEvent::TYPE => RequestEvent::class,
+    GetContextMembershipEvent::TYPE => GetContextMembershipEvent::class,
+    GetResourceLinkMembershipEvent::TYPE => GetResourceLinkMembershipEvent::class,
+    SendControlEvent::TYPE => SendControlEvent::class,
+])]
 interface EventInterface
 {
+    public function getRegistrationId(): string;
 }

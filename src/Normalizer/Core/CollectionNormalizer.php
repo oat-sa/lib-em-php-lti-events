@@ -6,6 +6,7 @@ namespace OAT\Library\EnvironmentManagementLtiEvents\Normalizer\Core;
 
 use OAT\Library\Lti1p3Core\Util\Collection\Collection;
 use OAT\Library\Lti1p3Core\Util\Collection\CollectionInterface;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -30,9 +31,13 @@ class CollectionNormalizer implements NormalizerInterface, DenormalizerInterface
 
     public function denormalize($data, string $type, string $format = null, array $context = []): Collection
     {
+        if (!is_array($data)) {
+            throw new InvalidArgumentException(sprintf('Data expected to be an array, "%s" given.', get_debug_type($data)));
+        }
+
         $collection = new Collection();
 
-        $collection->add($data[self::PARAM_ITEMS]);
+        $collection->add($data[self::PARAM_ITEMS] ?? []);
 
         return $collection;
     }
