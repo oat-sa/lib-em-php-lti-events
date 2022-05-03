@@ -22,7 +22,7 @@ class ScoreNormalizer implements NormalizerInterface, DenormalizerInterface, Nor
     use NormalizerAwareTrait;
     use DenormalizerAwareTrait;
 
-    private const PARAM_USER_IDENTIFIER = 'userIdentifier';
+    private const PARAM_USER_IDENTIFIER = 'userId';
     private const PARAM_ACTIVITY_PROGRESS_STATUS = 'activityProgressStatus';
     private const PARAM_GRADING_PROGRESS_STATUS = 'gradingProgressStatus';
     private const PARAM_LINE_ITEM_IDENTIFIER = 'lineItemIdentifier';
