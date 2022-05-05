@@ -75,7 +75,7 @@ final class ScoreNormalizerTest extends TestCase
 
         $this->assertEquals(
             [
-                'userIdentifier' => $score->getUserIdentifier(),
+                'userId' => $score->getUserIdentifier(),
                 'activityProgressStatus' => $score->getActivityProgressStatus(),
                 'gradingProgressStatus' => $score->getGradingProgressStatus(),
                 'lineItemIdentifier' => $score->getLineItemIdentifier(),
@@ -132,7 +132,7 @@ final class ScoreNormalizerTest extends TestCase
         $timestamp = new DateTimeImmutable();
 
         $rawData = [
-            'userIdentifier' => 'u1',
+            'userId' => 'u1',
             'activityProgressStatus' => 'Initialized',
             'gradingProgressStatus' => 'Pending',
             'lineItemIdentifier' => 'l',
@@ -157,7 +157,7 @@ final class ScoreNormalizerTest extends TestCase
 
         $score = $this->subject->denormalize($rawData, Score::class);
 
-        $this->assertSame($rawData['userIdentifier'], $score->getUserIdentifier());
+        $this->assertSame($rawData['userId'], $score->getUserIdentifier());
         $this->assertSame($rawData['activityProgressStatus'], $score->getActivityProgressStatus());
         $this->assertSame($rawData['gradingProgressStatus'], $score->getGradingProgressStatus());
         $this->assertSame($rawData['lineItemIdentifier'], $score->getLineItemIdentifier());
