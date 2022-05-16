@@ -55,9 +55,6 @@ class ResourceLinkNormalizer implements NormalizerInterface, DenormalizerInterfa
 
     public function supportsDenormalization($data, string $type, string $format = null): bool
     {
-        return in_array($type, [
-            LtiResourceLinkInterface::class,
-            LtiResourceLink::class,
-        ]);
+        return is_a($type, LtiResourceLinkInterface::class, true);
     }
 }

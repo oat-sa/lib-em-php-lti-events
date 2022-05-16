@@ -51,9 +51,6 @@ class SubmissionReviewNormalizer implements NormalizerInterface, DenormalizerInt
 
     public function supportsDenormalization($data, string $type, string $format = null): bool
     {
-        return in_array($type, [
-            LineItemSubmissionReviewInterface::class,
-            LineItemSubmissionReview::class,
-        ]);
+        return is_a($type, LineItemSubmissionReviewInterface::class, true);
     }
 }

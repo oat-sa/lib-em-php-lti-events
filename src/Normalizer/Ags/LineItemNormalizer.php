@@ -81,9 +81,6 @@ class LineItemNormalizer implements NormalizerInterface, DenormalizerInterface, 
 
     public function supportsDenormalization($data, string $type, string $format = null): bool
     {
-        return in_array($type, [
-            LineItemInterface::class,
-            LineItem::class,
-        ]);
+        return is_a($type, LineItemInterface::class, true);
     }
 }

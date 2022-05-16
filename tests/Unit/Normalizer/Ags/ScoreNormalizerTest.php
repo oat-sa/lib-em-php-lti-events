@@ -76,8 +76,8 @@ final class ScoreNormalizerTest extends TestCase
         $this->assertEquals(
             [
                 'userId' => $score->getUserIdentifier(),
-                'activityProgressStatus' => $score->getActivityProgressStatus(),
-                'gradingProgressStatus' => $score->getGradingProgressStatus(),
+                'activityProgress' => $score->getActivityProgressStatus(),
+                'gradingProgress' => $score->getGradingProgressStatus(),
                 'lineItemIdentifier' => $score->getLineItemIdentifier(),
                 'scoreGiven' => $score->getScoreGiven(),
                 'scoreMaximum' => $score->getScoreMaximum(),
@@ -133,8 +133,8 @@ final class ScoreNormalizerTest extends TestCase
 
         $rawData = [
             'userId' => 'u1',
-            'activityProgressStatus' => 'Initialized',
-            'gradingProgressStatus' => 'Pending',
+            'activityProgress' => 'Initialized',
+            'gradingProgress' => 'Pending',
             'lineItemIdentifier' => 'l',
             'scoreGiven' => 4.00,
             'scoreMaximum' => 5.00,
@@ -158,8 +158,8 @@ final class ScoreNormalizerTest extends TestCase
         $score = $this->subject->denormalize($rawData, Score::class);
 
         $this->assertSame($rawData['userId'], $score->getUserIdentifier());
-        $this->assertSame($rawData['activityProgressStatus'], $score->getActivityProgressStatus());
-        $this->assertSame($rawData['gradingProgressStatus'], $score->getGradingProgressStatus());
+        $this->assertSame($rawData['activityProgress'], $score->getActivityProgressStatus());
+        $this->assertSame($rawData['gradingProgress'], $score->getGradingProgressStatus());
         $this->assertSame($rawData['lineItemIdentifier'], $score->getLineItemIdentifier());
         $this->assertSame($rawData['scoreGiven'], $score->getScoreGiven());
         $this->assertSame($rawData['scoreMaximum'], $score->getScoreMaximum());

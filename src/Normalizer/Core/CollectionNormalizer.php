@@ -44,9 +44,6 @@ class CollectionNormalizer implements NormalizerInterface, DenormalizerInterface
 
     public function supportsDenormalization($data, string $type, string $format = null): bool
     {
-        return in_array($type, [
-            CollectionInterface::class,
-            Collection::class,
-        ]);
+        return is_a($type, CollectionInterface::class, true);
     }
 }
