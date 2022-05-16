@@ -23,8 +23,8 @@ class ScoreNormalizer implements NormalizerInterface, DenormalizerInterface, Nor
     use DenormalizerAwareTrait;
 
     private const PARAM_USER_IDENTIFIER = 'userId';
-    private const PARAM_ACTIVITY_PROGRESS_STATUS = 'activityProgressStatus';
-    private const PARAM_GRADING_PROGRESS_STATUS = 'gradingProgressStatus';
+    private const PARAM_ACTIVITY_PROGRESS = 'activityProgress';
+    private const PARAM_GRADING_PROGRESS = 'gradingProgress';
     private const PARAM_LINE_ITEM_IDENTIFIER = 'lineItemIdentifier';
     private const PARAM_SCORE_GIVEN = 'scoreGiven';
     private const PARAM_SCORE_MAXIMUM = 'scoreMaximum';
@@ -40,8 +40,8 @@ class ScoreNormalizer implements NormalizerInterface, DenormalizerInterface, Nor
     {
         return [
             self::PARAM_USER_IDENTIFIER => $object->getUserIdentifier(),
-            self::PARAM_ACTIVITY_PROGRESS_STATUS => $object->getActivityProgressStatus(),
-            self::PARAM_GRADING_PROGRESS_STATUS => $object->getGradingProgressStatus(),
+            self::PARAM_ACTIVITY_PROGRESS => $object->getActivityProgressStatus(),
+            self::PARAM_GRADING_PROGRESS => $object->getGradingProgressStatus(),
             self::PARAM_LINE_ITEM_IDENTIFIER => $object->getLineItemIdentifier(),
             self::PARAM_SCORE_GIVEN => $object->getScoreGiven(),
             self::PARAM_SCORE_MAXIMUM => $object->getScoreMaximum(),
@@ -64,8 +64,8 @@ class ScoreNormalizer implements NormalizerInterface, DenormalizerInterface, Nor
 
         return new Score(
             $data[self::PARAM_USER_IDENTIFIER],
-            $data[self::PARAM_ACTIVITY_PROGRESS_STATUS] ?? ScoreInterface::ACTIVITY_PROGRESS_STATUS_INITIALIZED,
-            $data[self::PARAM_GRADING_PROGRESS_STATUS] ?? ScoreInterface::GRADING_PROGRESS_STATUS_NOT_READY,
+            $data[self::PARAM_ACTIVITY_PROGRESS] ?? ScoreInterface::ACTIVITY_PROGRESS_STATUS_INITIALIZED,
+            $data[self::PARAM_GRADING_PROGRESS] ?? ScoreInterface::GRADING_PROGRESS_STATUS_NOT_READY,
             $data[self::PARAM_LINE_ITEM_IDENTIFIER] ?? null,
             $data[self::PARAM_SCORE_GIVEN] ?? null,
             $data[self::PARAM_SCORE_MAXIMUM] ?? null,
@@ -77,9 +77,6 @@ class ScoreNormalizer implements NormalizerInterface, DenormalizerInterface, Nor
 
     public function supportsDenormalization($data, string $type, string $format = null): bool
     {
-        return in_array($type, [
-            ScoreInterface::class,
-            Score::class,
-        ]);
+        return is_a($type, ScoreInterface::class, true);
     }
 }

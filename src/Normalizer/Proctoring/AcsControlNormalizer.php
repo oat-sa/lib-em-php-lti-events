@@ -80,9 +80,6 @@ class AcsControlNormalizer implements NormalizerInterface, DenormalizerInterface
 
     public function supportsDenormalization($data, string $type, string $format = null): bool
     {
-        return in_array($type, [
-            AcsControlInterface::class,
-            AcsControl::class,
-        ]);
+        return is_a($type, AcsControlInterface::class, true);
     }
 }
