@@ -4,7 +4,7 @@
     "license": "GPL-2.0-only",
     "minimum-stability": "dev",
     "require": {
-        "php": ">=8.0",
+        "php": ">=7.4",
         "ext-ctype": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
