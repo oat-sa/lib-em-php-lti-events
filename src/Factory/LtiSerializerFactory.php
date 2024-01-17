@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OAT\Library\EnvironmentManagementLtiEvents\Factory;
 
+use DateTimeInterface;
 use OAT\Library\EnvironmentManagementLtiEvents\Normalizer\Ags\LineItemNormalizer;
 use OAT\Library\EnvironmentManagementLtiEvents\Normalizer\Ags\ScoreNormalizer;
 use OAT\Library\EnvironmentManagementLtiEvents\Normalizer\Ags\SubmissionReviewNormalizer;
@@ -15,6 +16,7 @@ use Symfony\Component\Serializer\Mapping\ClassDiscriminatorFromClassMetadata;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -34,7 +36,8 @@ class LtiSerializerFactory
                 new ScoreNormalizer(),
                 new AcsControlNormalizer(),
                 new ResourceLinkNormalizer(),
-                new DateTimeNormalizer(),
+                new JsonSerializableNormalizer(),
+                new DateTimeNormalizer([DateTimeNormalizer::FORMAT_KEY => DateTimeInterface::RFC3339_EXTENDED]),
                 new ObjectNormalizer($classMetaDataFactory, null, null, null, $classDiscriminator),
             ],
             [
