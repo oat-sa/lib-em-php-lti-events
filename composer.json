@@ -8,13 +8,13 @@
         "ext-ctype": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "oat-sa/lib-lti1p3-ags": "^1.4",
-        "oat-sa/lib-lti1p3-basic-outcome": "^4.1",
-        "oat-sa/lib-lti1p3-core": "^6.6",
-        "oat-sa/lib-lti1p3-nrps": "^7.0",
-        "oat-sa/lib-lti1p3-proctoring": "^0.4",
-        "symfony/property-access": "^5.0",
-        "symfony/serializer": "^5.0"
+        "oat-sa/lib-lti1p3-ags": "^1.4 | ^2.0",
+        "oat-sa/lib-lti1p3-basic-outcome": "^4.1 | ^5.0",
+        "oat-sa/lib-lti1p3-core": "^6.6 | ^7.0",
+        "oat-sa/lib-lti1p3-nrps": "^7.0 | ^8.0",
+        "oat-sa/lib-lti1p3-proctoring": "^0.5 | ^1.0",
+        "symfony/property-access": "^5.0 | ^6.4 | ^7.0",
+        "symfony/serializer": "^5.0 | ^6.4 | ^7.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5"
